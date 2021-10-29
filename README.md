@@ -17,7 +17,14 @@ ecs-exec-pf - Port forwarding using the ECS task container. (aws-cli wrapper)
     -l --local-port   Client local port. (default: 0)
 ```
 
-# Execution Example
+## Installation
+
+```sh
+brew tap winebarrel/ecs-exec-pf
+brew isntall ecs-exec-pf
+```
+
+## Execution Example
 
 ```sh
 $ ecs-exec-pf -c my-cluster -t 0113f61a4b1044d99c627daeee8c0d0c -p 80 -l 8080
