@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"os/signal"
 	"sync"
+	"syscall"
 )
 
 func StartSession(cluster string, taskId string, containerId string, port uint16, localPort uint16) error {
@@ -43,6 +44,7 @@ func runCommand(cmdWithArgs []string) error {
 
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig)
+	signal.Ignore(syscall.SIGURG)
 
 	go func() {
 		for {
