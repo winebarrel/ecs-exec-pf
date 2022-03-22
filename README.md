@@ -21,7 +21,7 @@ ecs-exec-pf - Port forwarding using the ECS task container. (aws-cli wrapper)
 
 ```sh
 brew tap winebarrel/ecs-exec-pf
-brew isntall ecs-exec-pf
+brew install ecs-exec-pf
 ```
 
 ## Execution Example
