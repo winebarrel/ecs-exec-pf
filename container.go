@@ -14,6 +14,9 @@ type ecsTaskDescriber interface {
 	DescribeTasks(context.Context, *ecs.DescribeTasksInput, ...func(*ecs.Options)) (*ecs.DescribeTasksOutput, error)
 }
 
+// GetContainerId returns the ECS container runtime ID for the specified cluster, task, and container name.
+// It uses the AWS SDK ECS client created from the provided config.
+// Returns an error if the task or container cannot be found, or if the container does not have a runtime ID.
 func GetContainerId(cfg aws.Config, cluster, taskId, containerName string) (string, error) {
 	return getContainerIdWithDescriber(cluster, taskId, containerName, ecs.NewFromConfig(cfg))
 }

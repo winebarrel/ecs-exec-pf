@@ -40,6 +40,7 @@ func newMockTaskDescriber(tasks []types.Task) *MockTaskDescriber {
 	return &MockTaskDescriber{Tasks: tasks}
 }
 
+// TestGetContainerId tests GetContainerId and getContainerIdWithDescriber for various task/container scenarios.
 func TestGetContainerId(t *testing.T) {
 	tests := []struct {
 		name           string
@@ -125,6 +126,8 @@ func TestGetContainerId(t *testing.T) {
 	}
 }
 
+// TestGetContainerId_DescribeTasksReturnsMultipleTasks_ReturnsError tests that an error is returned
+// when DescribeTasks returns more than one task for a given task ID.
 func TestGetContainerId_DescribeTasksReturnsMultipleTasks_ReturnsError(t *testing.T) {
 	mockTaskDescriber := newMockTaskDescriber([]types.Task{{}, {}})
 	_, err := getContainerIdWithDescriber("testCluster", "testTaskID", "", mockTaskDescriber)
