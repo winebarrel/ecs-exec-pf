@@ -2,11 +2,10 @@ package main
 
 import (
 	"log"
+	"runtime/debug"
 
 	"github.com/integrii/flaggy"
 )
-
-var version string
 
 const (
 	Description = "Port forwarding using the ECS task container. (aws-cli wrapper)"
@@ -18,13 +17,22 @@ type Options struct {
 	Container string
 	Port      uint16
 	LocalPort uint16
+	Debug     bool
+}
+
+func getVersion() string {
+	if info, ok := debug.ReadBuildInfo(); ok {
+		return info.Main.Version
+	}
+
+	return "unknown"
 }
 
 func parseArgs() *Options {
 	opts := &Options{}
 
 	flaggy.SetDescription(Description)
-	flaggy.SetVersion(version)
+	flaggy.SetVersion(getVersion())
 	flaggy.String(&opts.Cluster, "c", "cluster", "ECS cluster name.")
 	flaggy.String(&opts.Task, "t", "task", "ECS task ID.")
 	flaggy.String(&opts.Container, "n", "container", "Container name in ECS task.")
