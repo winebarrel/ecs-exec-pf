@@ -19,17 +19,17 @@ func GetContainerId(cfg aws.Config, cluster string, taskId string, containerName
 	output, err := svc.DescribeTasks(context.Background(), input)
 
 	if err != nil {
-		return "", fmt.Errorf("Faild to call DescribeTasks: %s/%s", cluster, taskId)
+		return "", fmt.Errorf("failed to call DescribeTasks: %s/%s: %w", cluster, taskId, err)
 	}
 
 	if len(output.Tasks) == 0 {
-		return "", fmt.Errorf("Task not found: %s/%s", cluster, taskId)
+		return "", fmt.Errorf("task not found: %s/%s", cluster, taskId)
 	}
 
 	task := output.Tasks[0]
 
 	if len(task.Containers) == 0 {
-		return "", fmt.Errorf("Container not found: %s/%s/%s", cluster, taskId, containerName)
+		return "", fmt.Errorf("container not found: %s/%s/%s", cluster, taskId, containerName)
 	}
 
 	container := task.Containers[0]
@@ -41,7 +41,7 @@ func GetContainerId(cfg aws.Config, cluster string, taskId string, containerName
 			}
 		}
 
-		return "", fmt.Errorf("Container not found: %s/%s/%s", cluster, taskId, containerName)
+		return "", fmt.Errorf("container not found: %s/%s/%s", cluster, taskId, containerName)
 	}
 
 	return *container.RuntimeId, nil
