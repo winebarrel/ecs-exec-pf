@@ -1,3 +1,8 @@
+> [!note]
+> This repository is no longer maintained. https://github.com/winebarrel/ecs-exec-pf/pull/5
+> 
+> Please use https://github.com/cuotos/ecs-exec-pf
+
 # ecs-exec-pf
 
 Port forwarding using the ECS task container. (aws-cli wrapper)
